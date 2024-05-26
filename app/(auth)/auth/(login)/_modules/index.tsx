@@ -7,7 +7,6 @@ import Link from "next/link";
 import { FC, ReactElement } from "react";
 import { useForm } from "react-hook-form";
 import { TLoginForm, schema } from "../_entities/schema";
-import { loginByGoogle } from "../_actions/login-by-google";
 import { signIn } from "next-auth/react";
 
 export const LoginFormModule: FC = (): ReactElement => {
