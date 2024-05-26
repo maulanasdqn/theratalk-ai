@@ -2,15 +2,18 @@
 import { GoogleIcon } from "@/components/svg-tsx/google-icon";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Modal } from "@/components/ui/modal";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { FC, ReactElement } from "react";
+import { FC, ReactElement, useState } from "react";
 import { useForm } from "react-hook-form";
 import { TRegisterForm, schema } from "../_entities/schema";
 import { registerAction } from "../_actions";
 import { useRouter } from "next/navigation";
+import { ExclamationIcon } from "@/components/svg-tsx/exclamation-icon";
 
 export const RegisterFormModule: FC = (): ReactElement => {
+  const [openModal, setOpenModal] = useState(false);
   const { push } = useRouter();
   const {
     control,
@@ -33,14 +36,14 @@ export const RegisterFormModule: FC = (): ReactElement => {
     if (response?.error) {
       alert(response?.error?.message);
     }
-    push(`/auth/otp?email=${data.email}`);
+
+    if (!response?.error) {
+      push(`/auth/otp?email=${data.email}`);
+    }
   });
 
   return (
-    <form
-      onSubmit={onSubmit}
-      className="w-full max-w-[594px] p-6 bg-white shadow-md h-auto rounded-xl flex flex-col gap-y-6 justify-center"
-    >
+    <form className="w-full max-w-[594px] p-6 bg-white shadow-md h-auto rounded-xl flex flex-col gap-y-6 justify-center">
       <div className="flex flex-col">
         <h1 className="text-3xl font-bold">Register</h1>
       </div>
@@ -87,14 +90,13 @@ export const RegisterFormModule: FC = (): ReactElement => {
             label="Konfirmasi Kata Sandi"
           />
         </div>
-        <Button disabled={!isValid}>Daftar</Button>
+        <Button type="button" onClick={() => setOpenModal(true)} disabled={!isValid}>
+          Daftar
+        </Button>
         <div className="w-full flex justify-center">
           <div className="text-xs sm:text-sm text-gray-500">
             Sudah Mempunyai Akun?{" "}
-            <Link
-              className="text-green-700 text-xs sm:text-sm"
-              href="/auth/login"
-            >
+            <Link className="text-green-700 text-xs sm:text-sm" href="/auth/login">
               Masuk Disini
             </Link>
           </div>
@@ -110,6 +112,16 @@ export const RegisterFormModule: FC = (): ReactElement => {
           Daftar dengan Google
         </Button>
       </div>
+      <Modal
+        icon={<ExclamationIcon />}
+        onClose={() => setOpenModal(false)}
+        onOk={onSubmit}
+        okText="Selesaikan Registrasi"
+        cancelText="Kembali"
+        title="Apakah Data Sesuai?"
+        content="Pastikan data yang anda masukkan sudah sesuai, data yang sudah disubmit tidak dapat diubah kembali"
+        open={openModal}
+      />
     </form>
   );
 };

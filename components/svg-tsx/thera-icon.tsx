@@ -1,11 +1,7 @@
-import { FC, ReactElement } from "react";
-import { TSvg } from "./type";
+import type { FC, ReactElement } from "react";
+import type { TSvg } from "./type";
 
-export const TheraIcon: FC<TSvg> = ({
-  width = "55",
-  height = "48",
-  className,
-}): ReactElement => {
+export const TheraIcon: FC<TSvg> = ({ width = "55", height = "48", className }): ReactElement => {
   return (
     <svg
       className={className}

@@ -1,7 +1,7 @@
 "use server";
 import { openai } from "./openai";
 
-export const checkupQuestioner = async () => {
+export const checkupQuestioner = async (value: any) => {
   const response = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
     temperature: 0,
@@ -20,6 +20,10 @@ export const checkupQuestioner = async () => {
                   "checkupPercentage": the checkup percentage of the patient in general from 0 to 100,
                 }
                 `,
+      },
+      {
+        role: "user",
+        content: value,
       },
     ],
   });

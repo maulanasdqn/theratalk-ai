@@ -1,5 +1,5 @@
-import { FC, ReactElement } from "react";
-import { TSvg } from "./type";
+import type { FC, ReactElement } from "react";
+import type { TSvg } from "./type";
 
 export const OTPIllustration: FC<TSvg> = ({
   className,
@@ -130,12 +130,7 @@ export const OTPIllustration: FC<TSvg> = ({
     </g>
     <defs>
       <clipPath id="clip0_41_1253">
-        <rect
-          width="199"
-          height="193"
-          fill="white"
-          transform="translate(0.5)"
-        />
+        <rect width="199" height="193" fill="white" transform="translate(0.5)" />
       </clipPath>
     </defs>
   </svg>

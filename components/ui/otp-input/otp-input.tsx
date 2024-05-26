@@ -1,16 +1,15 @@
 import { FC, ReactElement, useRef } from "react";
 import { TOtpInput } from "./type";
 
-export const OtpInput: FC<TOtpInput> = ({
-  otpValues,
-  setOtpValues,
-}): ReactElement => {
-  const ref = useRef<HTMLInputElement>(null);
-  const refs = Array.from({ length: 4 }, () => ref);
-  const handleKeyDown = (
-    index: number,
-    e: React.KeyboardEvent<HTMLInputElement>,
-  ) => {
+export const OtpInput: FC<TOtpInput> = ({ otpValues, setOtpValues }): ReactElement => {
+  const refs = [
+    useRef<HTMLInputElement>(null),
+    useRef<HTMLInputElement>(null),
+    useRef<HTMLInputElement>(null),
+    useRef<HTMLInputElement>(null),
+  ];
+
+  const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Backspace" && index > 0 && otpValues[index] === "") {
       refs[index - 1].current?.focus();
     }

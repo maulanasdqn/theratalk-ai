@@ -1,5 +1,5 @@
-import { FC, ReactElement } from "react";
-import { TSvg } from "./type";
+import type { FC, ReactElement } from "react";
+import type { TSvg } from "./type";
 
 export const ForgotIllustration: FC<TSvg> = ({
   width = "294",
@@ -128,12 +128,7 @@ export const ForgotIllustration: FC<TSvg> = ({
     </g>
     <defs>
       <clipPath id="clip0_40_881">
-        <rect
-          width="293"
-          height="195"
-          fill="white"
-          transform="translate(0.5)"
-        />
+        <rect width="293" height="195" fill="white" transform="translate(0.5)" />
       </clipPath>
     </defs>
   </svg>

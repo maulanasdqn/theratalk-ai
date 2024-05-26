@@ -1,5 +1,5 @@
-import { FC, ReactElement } from "react";
-import { TSvg } from "./type";
+import type { FC, ReactElement } from "react";
+import type { TSvg } from "./type";
 
 export const OrnamenTopIllustration: FC<TSvg> = ({
   className,

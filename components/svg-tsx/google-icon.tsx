@@ -1,11 +1,7 @@
-import { FC, ReactElement } from "react";
-import { TSvg } from "./type";
+import type { FC, ReactElement } from "react";
+import type { TSvg } from "./type";
 
-export const GoogleIcon: FC<TSvg> = ({
-  className,
-  width = "25",
-  height = "25",
-}): ReactElement => (
+export const GoogleIcon: FC<TSvg> = ({ className, width = "25", height = "25" }): ReactElement => (
   <svg
     className={className}
     width={width}
@@ -38,12 +34,7 @@ export const GoogleIcon: FC<TSvg> = ({
     </g>
     <defs>
       <clipPath id="clip0_40_426">
-        <rect
-          width="24"
-          height="24"
-          fill="white"
-          transform="translate(0.5 0.5)"
-        />
+        <rect width="24" height="24" fill="white" transform="translate(0.5 0.5)" />
       </clipPath>
     </defs>
   </svg>
