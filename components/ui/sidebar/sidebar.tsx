@@ -3,7 +3,7 @@ import { FC, ReactElement, useState } from "react";
 import { Icon } from "@iconify/react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
+import { TheraIcon } from "@/components/svg-tsx/thera-icon";
 
 export const Sidebar: FC = (): ReactElement => {
   const [extend, setExtend] = useState(false);
@@ -29,7 +29,7 @@ export const Sidebar: FC = (): ReactElement => {
         onClick={() => setExtend(!extend)}
       />
       <figure className="w-full flex justify-center items-center gap-x-3 py-6">
-        <Image src="/thera.svg" alt="TheraTalk AI" />
+        <TheraIcon width={"40"} height={"40"} />
         <figcaption
           className={`text-lg ${showLogo} font-medium text-gray-700 tracking-wider transition-all duration-600`}
         >
@@ -47,9 +47,7 @@ export const Sidebar: FC = (): ReactElement => {
             width={extend ? 20 : 30}
             className={isActive("/dashboard") ? "text-white" : "text-green-700"}
           />
-          <span className={extend ? "block font-semibold text-sm" : "hidden"}>
-            Dashboard
-          </span>
+          <span className={extend ? "block font-semibold text-sm" : "hidden"}>Dashboard</span>
         </Link>
         <Link
           href="/dashboard/chat-ai"
@@ -58,21 +56,13 @@ export const Sidebar: FC = (): ReactElement => {
           <Icon
             icon="carbon:chat"
             width={extend ? 20 : 30}
-            className={
-              isActive("/dashboard/chat-ai") ? "text-white" : "text-green-700"
-            }
+            className={isActive("/dashboard/chat-ai") ? "text-white" : "text-green-700"}
           />
-          <span className={extend ? "block font-semibold text-sm" : "hidden"}>
-            Chat with AI
-          </span>
+          <span className={extend ? "block font-semibold text-sm" : "hidden"}>Chat with AI</span>
         </Link>
       </nav>
       <div className="absolute transition-all duration-300 bottom-4 text-sm left-5 flex items-center gap-x-2">
-        <Icon
-          icon="carbon:logout"
-          width={extend ? 20 : 30}
-          className="text-green-700"
-        />
+        <Icon icon="carbon:logout" width={extend ? 20 : 30} className="text-green-700" />
         {extend && <span className="text-green-700 font-semibold">Logout</span>}
       </div>
     </aside>
