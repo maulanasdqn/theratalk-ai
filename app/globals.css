@@ -1,3 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@body {
+  font-family: "Montserrat", sans-serif;
+}
+
+@layer base {
+  @font-face {
+    font-family: "Montserrat";
+    font-weight: 400;
+    src: url(/fonts/Montserrat-Regular.ttf) format("truetype");
+  }
+
+  @font-face {
+    font-family: "Montserrat";
+    font-weight: 500;
+    src: url(/fonts/Montserrat-Medium.ttf) format("truetype");
+  }
+
+  @font-face {
+    font-family: "Montserrat";
+    font-weight: 600;
+    src: url(/fonts/Montserrat-SemiBold.ttf) format("truetype");
+  }
+
+  @font-face {
+    font-family: "Montserrat";
+    font-weight: 700;
+    src: url(/fonts/Montserrat-Bold.ttf) format("truetype");
+  }
+}

@@ -6,15 +6,18 @@ const config: Config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: "class",
   theme: {
-    extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
+    fontFamily: {
+      display: ["Montserrat", "sans-serif"],
+      body: ['"Montserrat"', "sans-serif"],
+      mono: ['"Montserrat"', "sans-serif"],
+      sans: ['"Montserrat"', "sans-serif"],
+      semibold: ['"Montserrat"', "sans-serif"],
+      bold: ['"Montserrat"', "sans-serif"],
+      normal: ['"Montserrat"', "sans-serif"],
     },
-  },
-  plugins: [],
+    extend: {},
+  }, plugins: [],
 };
 export default config;
