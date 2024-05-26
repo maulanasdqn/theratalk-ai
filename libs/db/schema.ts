@@ -1,10 +1,4 @@
-import {
-  timestamp,
-  pgTable,
-  text,
-  primaryKey,
-  integer,
-} from "drizzle-orm/pg-core";
+import { timestamp, pgTable, text, primaryKey, integer } from "drizzle-orm/pg-core";
 import type { AdapterAccountType } from "next-auth/adapters";
 
 export const users = pgTable("user", {
@@ -13,6 +7,7 @@ export const users = pgTable("user", {
     .$defaultFn(() => crypto.randomUUID()),
   otp: text("otp"),
   fullname: text("fullname"),
+  name: text("name"),
   address: text("address"),
   password: text("password"),
   email: text("email").notNull().unique(),

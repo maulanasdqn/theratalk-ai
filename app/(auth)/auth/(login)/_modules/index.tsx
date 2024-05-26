@@ -7,6 +7,8 @@ import Link from "next/link";
 import { FC, ReactElement } from "react";
 import { useForm } from "react-hook-form";
 import { TLoginForm, schema } from "../_entities/schema";
+import { loginByGoogle } from "../_actions/login-by-google";
+import { signIn } from "next-auth/react";
 
 export const LoginFormModule: FC = (): ReactElement => {
   const {
@@ -52,10 +54,7 @@ export const LoginFormModule: FC = (): ReactElement => {
           label="Kata Sandi"
         />
         <div className="w-full flex justify-end">
-          <Link
-            className="text-xs sm:text-sm font-semibold text-green-700"
-            href="/auth/forgot"
-          >
+          <Link className="text-xs sm:text-sm font-semibold text-green-700" href="/auth/forgot">
             Lupa kata sandi?
           </Link>
         </div>
@@ -63,10 +62,7 @@ export const LoginFormModule: FC = (): ReactElement => {
         <div className="w-full flex justify-center">
           <div className="text-xs sm:text-sm text-gray-500">
             Belum Mempunyai Akun?{" "}
-            <Link
-              className="text-green-700 text-xs sm:text-sm"
-              href="/auth/register"
-            >
+            <Link className="text-green-700 text-xs sm:text-sm" href="/auth/register">
               Daftar Disini
             </Link>
           </div>
@@ -77,7 +73,7 @@ export const LoginFormModule: FC = (): ReactElement => {
           </span>
           <hr className="border absolute top-1/2 -translate-y-1/2 border-gray-300 w-full" />
         </div>
-        <Button variant="secondary">
+        <Button type="button" onClick={() => signIn("google")} variant="secondary">
           <GoogleIcon />
           Masuk dengan Google
         </Button>
