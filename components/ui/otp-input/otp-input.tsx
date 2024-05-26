@@ -5,7 +5,8 @@ export const OtpInput: FC<TOtpInput> = ({
   otpValues,
   setOtpValues,
 }): ReactElement => {
-  const refs = Array.from({ length: 4 }, () => useRef<HTMLInputElement>(null));
+  const ref = useRef<HTMLInputElement>(null);
+  const refs = Array.from({ length: 4 }, () => ref);
   const handleKeyDown = (
     index: number,
     e: React.KeyboardEvent<HTMLInputElement>,
@@ -16,7 +17,7 @@ export const OtpInput: FC<TOtpInput> = ({
   };
 
   const handleChange = (index: number, value: string) => {
-    if (isNaN(Number(value))) return; // Ensure only numbers are entered
+    if (isNaN(Number(value))) return;
     const newOtpValues = [...otpValues];
     newOtpValues[index] = value;
     setOtpValues(newOtpValues);

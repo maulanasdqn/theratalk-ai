@@ -43,7 +43,7 @@ export const OTPFormModule: FC = (): ReactElement => {
     } else {
       reset({ otp: "" });
     }
-  }, [otpValues]);
+  }, [otpValues, reset]);
 
   return (
     <form

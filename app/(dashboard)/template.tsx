@@ -1,7 +1,7 @@
 import { Sidebar } from "@/components/ui/sidebar";
 import { FC, PropsWithChildren, ReactElement } from "react";
 
-export const DashboardTemplate: FC<Readonly<PropsWithChildren>> = (
+const DashboardTemplate: FC<Readonly<PropsWithChildren>> = (
   props,
 ): ReactElement => {
   return (
@@ -15,3 +15,5 @@ export const DashboardTemplate: FC<Readonly<PropsWithChildren>> = (
     </section>
   );
 };
+
+export default DashboardTemplate;

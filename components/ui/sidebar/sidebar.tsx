@@ -3,6 +3,7 @@ import { FC, ReactElement, useState } from "react";
 import { Icon } from "@iconify/react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 
 export const Sidebar: FC = (): ReactElement => {
   const [extend, setExtend] = useState(false);
@@ -28,7 +29,7 @@ export const Sidebar: FC = (): ReactElement => {
         onClick={() => setExtend(!extend)}
       />
       <figure className="w-full flex justify-center items-center gap-x-3 py-6">
-        <img src="/thera.svg" alt="TheraTalk AI" />
+        <Image src="/thera.svg" alt="TheraTalk AI" />
         <figcaption
           className={`text-lg ${showLogo} font-medium text-gray-700 tracking-wider transition-all duration-600`}
         >
