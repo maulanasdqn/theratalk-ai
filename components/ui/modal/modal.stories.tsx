@@ -27,5 +27,15 @@ export const Primary: Story = {
   args: {
     title: "Title Lorem Ipsum",
     open: true,
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    okText: "Ok",
+    cancelText: "Cancel",
+    onOk: () => {
+      console.log("ok");
+    },
+    onClose: () => {
+      console.log("close");
+    },
   },
 };
