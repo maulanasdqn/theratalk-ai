@@ -1,7 +1,7 @@
 "use server";
 import { openai } from "./openai";
 
-export const checkupQuestioner = async (value: any) => {
+export const checkupQuestioner = async (value: string) => {
   const response = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
     temperature: 0,

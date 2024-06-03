@@ -7,6 +7,7 @@ import Link from "next/link";
 import { FC, ReactElement } from "react";
 import { useForm } from "react-hook-form";
 import { TForgotForm, schema } from "../_entities/schema";
+import { forgotAction } from "../_actions";
 
 export const ForgotFormModule: FC = (): ReactElement => {
   const {
@@ -21,8 +22,8 @@ export const ForgotFormModule: FC = (): ReactElement => {
     },
   });
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
+  const onSubmit = handleSubmit(async (data) => {
+    await forgotAction(data.email);
   });
 
   return (
@@ -36,8 +37,8 @@ export const ForgotFormModule: FC = (): ReactElement => {
         </div>
         <h1 className="text-3xl font-bold">Forgot Password</h1>
         <p className="text-gray-400 text-sm">
-          Masukkan alamat email Anda di bawah ini dan kami akan mengirimkan kode
-          OTP untuk mereset password Anda.
+          Masukkan alamat email Anda di bawah ini dan kami akan mengirimkan kode OTP untuk mereset
+          password Anda.
         </p>
       </div>
       <div className="flex flex-col gap-y-4">
@@ -53,10 +54,7 @@ export const ForgotFormModule: FC = (): ReactElement => {
         <div className="w-full flex justify-center">
           <div className="text-xs sm:text-sm text-gray-500">
             Sudah ingat akun anda?{" "}
-            <Link
-              className="text-green-700 text-xs sm:text-sm"
-              href="/auth/login"
-            >
+            <Link className="text-green-700 text-xs sm:text-sm" href="/auth/login">
               Masuk Disini
             </Link>
           </div>
