@@ -37,8 +37,9 @@ export const RegisterFormModule: FC = (): ReactElement => {
       alert(response?.error?.message);
     }
 
-    if (!response?.error) {
-      push(`/auth/otp?email=${data.email}`);
+    if (response?.success) {
+      alert(response?.success?.message);
+      push(`/auth/otp?email=${data.email}&type=register`);
     }
   });
 

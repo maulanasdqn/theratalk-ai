@@ -16,22 +16,23 @@ export const registerAction = async (value: TRegisterForm) => {
       password,
     });
     await sendOtpVerficationEmail({ email: value.email, otp });
+    return {
+      success: {
+        message: "Pendaftaran berhasil, silahkan cek email anda",
+      },
+    };
   } catch (error) {
     const err = error as { code: string };
     if (err?.code === "23505") {
       return {
         error: {
-          code: 409,
           message: "Email sudah digunakan",
-          type: "email",
         },
       };
     } else {
       return {
         error: {
-          code: 500,
           message: "Terjadi kesalahan",
-          type: "server",
         },
       };
     }

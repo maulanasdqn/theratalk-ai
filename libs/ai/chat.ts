@@ -17,6 +17,6 @@ export const chatWithAi = async (value: string) => {
     ],
   });
 
-  const messageContent = response.choices[0].message?.content?.trim();
-  return { content: messageContent };
+  const message = response?.choices?.at?.(0)?.message?.content?.trim();
+  return { message };
 };

@@ -1,5 +1,8 @@
+"use client";
 import { TheraWhiteIcon } from "@/components/svg-tsx/thera-white-icon";
+import Link from "next/link";
 import { FC, ReactElement } from "react";
+import { Icon } from "@iconify/react";
 
 export const FooterModule: FC = (): ReactElement => {
   return (
@@ -20,18 +23,42 @@ export const FooterModule: FC = (): ReactElement => {
             <div className="flex w-fit items-center gap-x-4">
               <h1 className="text-2xl font-semibold text-white">SITEMAP</h1>
             </div>
-            <h2 className="text-1xl font-medium text-white">Home</h2>
-            <h2 className="text-1xl font-medium text-white">News</h2>
-            <h2 className="text-1xl font-medium text-white">Article</h2>
+            <Link href="/" className="text-1xl font-medium text-white hover:underline">
+              Home
+            </Link>
+            <Link href="/news" className="text-1xl font-medium text-white hover:underline">
+              News
+            </Link>
+            <Link href="/articles" className="text-1xl font-medium text-white hover:underline">
+              Articles
+            </Link>
           </div>
 
           <div className="flex flex-col gap-y-4">
             <div className="flex w-fit items-center gap-x-4">
               <h1 className="text-2xl font-semibold text-white">CONTACT US</h1>
             </div>
-            <h2 className="text-1xl font-medium text-white">Instagram</h2>
-            <h2 className="text-1xl font-medium text-white">Facebook</h2>
-            <h2 className="text-1xl font-medium text-white">WhatsApp</h2>
+            <Link
+              target="_blank"
+              href="https://www.instagram.com/theratalk_ai"
+              className="text-1xl font-medium flex items-center gap-x-3 text-white hover:underline"
+            >
+              <Icon icon="fa:instagram" /> Instagram
+            </Link>
+            <Link
+              target="_blank"
+              href="https://www.facebook.com/theratalkai"
+              className="text-1xl font-medium flex items-center gap-x-5 text-white hover:underline"
+            >
+              <Icon icon="fa:facebook" /> Facebook
+            </Link>
+            <Link
+              target="_blank"
+              href="https://wa.me/6281234567890"
+              className="text-1xl font-medium flex items-center gap-x-3 text-white hover:underline"
+            >
+              <Icon icon="fa:whatsapp" /> WhatsApp
+            </Link>
           </div>
         </div>
       </div>

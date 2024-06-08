@@ -10,12 +10,15 @@ export const forgotAction = async (value: string) => {
   try {
     await db.update(users).set({ otp: otpHash }).where(eq(users.email, value));
     await sendOtpResetEmail({ email: value, otp });
+    return {
+      success: {
+        message: "OTP terkirim",
+      },
+    };
   } catch (error) {
     return {
       error: {
-        code: 500,
-        message: "Terjadi kesalahan" + error,
-        type: "server",
+        message: `Terjadi kesalahan ${error}`,
       },
     };
   }

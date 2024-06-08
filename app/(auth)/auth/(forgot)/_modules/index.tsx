@@ -8,8 +8,10 @@ import { FC, ReactElement } from "react";
 import { useForm } from "react-hook-form";
 import { TForgotForm, schema } from "../_entities/schema";
 import { forgotAction } from "../_actions/forgot-action";
+import { useRouter } from "next/navigation";
 
 export const ForgotFormModule: FC = (): ReactElement => {
+  const { push } = useRouter();
   const {
     control,
     handleSubmit,
@@ -23,7 +25,15 @@ export const ForgotFormModule: FC = (): ReactElement => {
   });
 
   const onSubmit = handleSubmit(async (data) => {
-    await forgotAction(data.email);
+    const res = await forgotAction(data.email);
+
+    if (res?.success) {
+      push(`/auth/otp?email=${data.email}&type=forgot`);
+    }
+
+    if (res?.error) {
+      alert(res?.error.message);
+    }
   });
 
   return (
@@ -48,9 +58,9 @@ export const ForgotFormModule: FC = (): ReactElement => {
           type="email"
           placeholder="Masukkan Email"
           required
-          label="Email"
+          label="Alamat Email"
         />
-        <Button disabled={!isValid}>Reset Kata sandi</Button>
+        <Button disabled={!isValid}>Kirim Kode OTP</Button>
         <div className="w-full flex justify-center">
           <div className="text-xs sm:text-sm text-gray-500">
             Sudah ingat akun anda?{" "}

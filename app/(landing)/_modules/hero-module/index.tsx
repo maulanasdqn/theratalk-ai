@@ -1,6 +1,7 @@
 import { FC, ReactElement } from "react";
 import { Button } from "@/components/ui/button";
 import { HeroIllustration } from "@/components/svg-tsx/hero-ill";
+import Link from "next/link";
 
 export const HeroModule: FC = (): ReactElement => {
   return (
@@ -11,12 +12,12 @@ export const HeroModule: FC = (): ReactElement => {
             The Way Forward to a Happier Life
           </h1>
           <p className="md:text-xl text-lg font-medium text-gray-900 font-sans">
-            Get connected to the nearest health facilities and mental health
-            professionals with <strong>TheraTalk AI.</strong>
+            Get connected to the nearest health facilities and mental health professionals with{" "}
+            <strong>TheraTalk AI.</strong>
           </p>
-          <div className="w-fit">
+          <Link href="/about" className="w-fit">
             <Button>Learn More</Button>
-          </div>
+          </Link>
         </div>
         <div className="md:hidden block">
           <HeroIllustration width="240" height="320" />

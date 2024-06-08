@@ -27,14 +27,27 @@ export const OTPFormModule: FC = (): ReactElement => {
   });
 
   const onSubmit = handleSubmit(async (data) => {
-    const resp = await otpVerification({
+    const type = searchParams.get("type") as string;
+    const res = await otpVerification({
       email: searchParams.get("email") as string,
+      type,
       otp: data.otp,
     });
-    if (resp?.error) {
-      alert(resp?.error?.message);
+
+    if (res?.success) {
+      alert(res?.success?.message);
+      if (type === "register") {
+        push("/auth/login");
+      }
+
+      if (type === "forgot") {
+        push("/auth/reset");
+      }
     }
-    push("/auth/login");
+
+    if (res?.error) {
+      alert(res?.error?.message);
+    }
   });
 
   useEffect(() => {
