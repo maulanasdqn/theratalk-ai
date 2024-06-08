@@ -8,7 +8,7 @@ import Link from "next/link";
 import { FC, ReactElement, useState } from "react";
 import { useForm } from "react-hook-form";
 import { TRegisterForm, schema } from "../_entities/schema";
-import { registerAction } from "../_actions";
+import { registerAction } from "../_actions/register-action";
 import { useRouter } from "next/navigation";
 import { ExclamationIcon } from "@/components/svg-tsx/exclamation-icon";
 

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { FC, ReactElement } from "react";
 import { useForm } from "react-hook-form";
 import { TResetForm, schema } from "../_entities/schema";
+import { resetAction } from "../_actions/reset-action";
 
 export const ResetFormModule: FC = (): ReactElement => {
   const {
@@ -17,11 +18,12 @@ export const ResetFormModule: FC = (): ReactElement => {
     mode: "all",
     defaultValues: {
       password: "",
+      confirmPassword: "",
     },
   });
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
+  const onSubmit = handleSubmit(async (data) => {
+    await resetAction(data);
   });
 
   return (
@@ -32,8 +34,7 @@ export const ResetFormModule: FC = (): ReactElement => {
       <div className="flex flex-col gap-y-3">
         <h1 className="text-3xl font-bold">Reset Password</h1>
         <p className="text-gray-400 text-sm">
-          Masukkan kata sandi baru anda di bawah ini dan ulangi sekali lagi
-          untuk konfirmasi.
+          Masukkan kata sandi baru anda di bawah ini dan ulangi sekali lagi untuk konfirmasi.
         </p>
       </div>
       <div className="flex flex-col gap-y-4">
@@ -57,9 +58,7 @@ export const ResetFormModule: FC = (): ReactElement => {
           Pastikan kata sandi anda :
           <ul className="list-disc px-6">
             <li>Minimal 8 karakter panjang.</li>
-            <li>
-              Mengandung kombinasi huruf besar, huruf kecil, angka, dan simbol.
-            </li>
+            <li>Mengandung kombinasi huruf besar, huruf kecil, angka, dan simbol.</li>
           </ul>
         </div>
 
@@ -67,10 +66,7 @@ export const ResetFormModule: FC = (): ReactElement => {
         <div className="w-full flex justify-center">
           <div className="text-xs sm:text-sm text-gray-500">
             Sudah ingat akun anda?{" "}
-            <Link
-              className="text-green-700 text-xs sm:text-sm"
-              href="/auth/login"
-            >
+            <Link className="text-green-700 text-xs sm:text-sm" href="/auth/login">
               Masuk Disini
             </Link>
           </div>

@@ -4,11 +4,11 @@ import { TRegisterForm } from "../_entities/schema";
 import { users } from "@/libs/db/schema";
 import * as argon2 from "argon2";
 import { sendOtpVerficationEmail } from "@/libs/email/send-otp";
+import { generateOtp } from "@/libs/otp/generate";
 
 export const registerAction = async (value: TRegisterForm) => {
   const password = await argon2.hash(value.password);
-  const otp = String(Math.floor(1000 + Math.random() * 9000));
-  const otpHash = await argon2.hash(otp);
+  const { otp, otpHash } = await generateOtp();
   try {
     await db.insert(users).values({
       ...value,

@@ -7,7 +7,7 @@ import Link from "next/link";
 import { FC, ReactElement } from "react";
 import { useForm } from "react-hook-form";
 import { TForgotForm, schema } from "../_entities/schema";
-import { forgotAction } from "../_actions";
+import { forgotAction } from "../_actions/forgot-action";
 
 export const ForgotFormModule: FC = (): ReactElement => {
   const {

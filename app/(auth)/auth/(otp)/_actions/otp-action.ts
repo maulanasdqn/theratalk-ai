@@ -14,24 +14,19 @@ export const otpVerification = async (value: TOTPForm) => {
           otp: users.otp,
         })
         .from(users)
-        .where(eq(users.email, value.email as string))
+        .where(eq(users.email, value.email))
         .then((res) => {
-          return res[0].otp;
+          return res?.at(0)?.otp;
         })) || "";
     const otpHash = await argon2.verify(otp, value.otp);
     if (otpHash) {
-      await db
-        .update(users)
-        .set({ otp: null })
-        .where(eq(users.email, value.email as string));
-      await db
-        .update(users)
-        .set({ emailVerified: new Date() })
-        .where(eq(users.email, value.email as string));
+      await db.update(users).set({ otp: null }).where(eq(users.email, value.email));
+      await db.update(users).set({ emailVerified: new Date() }).where(eq(users.email, value.email));
     }
   } catch (error) {
     return {
       error: {
+        code: 401,
         message: "OTP verification failed",
       },
     };

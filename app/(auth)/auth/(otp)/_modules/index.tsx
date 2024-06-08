@@ -7,7 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { FC, ReactElement, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { TOTPForm, schema } from "../_entities/schema";
-import { otpVerification } from "../_actions";
+import { otpVerification } from "../_actions/otp-action";
 
 export const OTPFormModule: FC = (): ReactElement => {
   const [otpValues, setOtpValues] = useState<string[]>(Array(4).fill(""));
@@ -56,8 +56,7 @@ export const OTPFormModule: FC = (): ReactElement => {
         </div>
         <h1 className="text-3xl font-bold">OTP Verfication</h1>
         <p className="text-gray-400 text-sm">
-          Kami telah mengirimkan kode OTP ke alamat email{" "}
-          {searchParams.get("email")}
+          Kami telah mengirimkan kode OTP ke alamat email {searchParams.get("email")}
         </p>
       </div>
       <div className="flex flex-col gap-y-4">
@@ -66,9 +65,7 @@ export const OTPFormModule: FC = (): ReactElement => {
         <div className="w-full flex justify-center">
           <div className="text-xs sm:text-sm text-gray-500">
             Belum menerima kode?{" "}
-            <span className="text-green-700 text-xs sm:text-sm">
-              Kirim Ulang
-            </span>
+            <span className="text-green-700 text-xs sm:text-sm">Kirim Ulang</span>
           </div>
         </div>
       </div>

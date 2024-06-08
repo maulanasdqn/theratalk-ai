@@ -8,6 +8,7 @@ import { FC, ReactElement } from "react";
 import { useForm } from "react-hook-form";
 import { TLoginForm, schema } from "../_entities/schema";
 import { signIn } from "next-auth/react";
+import { loginByCredentials } from "../_actions/login-action";
 
 export const LoginFormModule: FC = (): ReactElement => {
   const {
@@ -24,7 +25,7 @@ export const LoginFormModule: FC = (): ReactElement => {
   });
 
   const onSubmit = handleSubmit(async (data) => {
-    console.log(data);
+    await loginByCredentials(data);
   });
 
   return (
