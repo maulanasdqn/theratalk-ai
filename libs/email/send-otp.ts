@@ -1,19 +1,15 @@
 "use server";
 import { Resend } from "resend";
+import { TSendOtp } from "./type";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-type TSendOtpEmail = {
-  email: string;
-  otp: string;
-};
-
-export const sendOtpVerficationEmail = async ({ email, otp }: TSendOtpEmail) =>
+export const sendOtpVerficationEmail = async (payload: TSendOtp) =>
   await resend.emails.send({
     from: "noreply <verfication@noreply.msdqn.dev>",
-    to: [email],
+    to: [payload.email],
     subject: "OTP Verification",
-    text: `Your OTP is ${otp}`,
+    text: `Your OTP is ${payload.otp}`,
     tags: [
       {
         name: "category",

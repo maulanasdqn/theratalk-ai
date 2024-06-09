@@ -16,9 +16,11 @@ export const Modal: FC<TModal> = (props): ReactElement => {
                 <p className="text-xl text-slate-400 text-center">{props.content}</p>
               </div>
               <div className="flex gap-x-4 w-full">
-                <Button onClick={props.onClose} variant="secondary">
-                  {props.cancelText}
-                </Button>
+                {props.cancelText && (
+                  <Button onClick={props.onClose} variant="secondary">
+                    {props.cancelText}
+                  </Button>
+                )}
                 <Button onClick={props.onOk}>{props.okText}</Button>
               </div>
             </div>
