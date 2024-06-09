@@ -4,13 +4,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { FC, ReactElement } from "react";
+import { FC, ReactElement, useState } from "react";
 import { useForm } from "react-hook-form";
 import { TForgotForm, schema } from "../_entities/schema";
 import { forgotAction } from "../_actions/forgot-action";
 import { useRouter } from "next/navigation";
+import { CheckIcon } from "@/components/svg-tsx/check-icon";
+import { Modal } from "@/components/ui/modal";
 
 export const ForgotFormModule: FC = (): ReactElement => {
+  const [successModal, setSuccessModal] = useState(false);
   const { push } = useRouter();
   const {
     control,
@@ -28,7 +31,7 @@ export const ForgotFormModule: FC = (): ReactElement => {
     const res = await forgotAction(data.email);
 
     if (res?.success) {
-      push(`/auth/otp?email=${data.email}&type=forgot`);
+      setSuccessModal(true);
     }
 
     if (res?.error) {
@@ -70,6 +73,15 @@ export const ForgotFormModule: FC = (): ReactElement => {
           </div>
         </div>
       </div>
+      <Modal
+        icon={<CheckIcon />}
+        onClose={() => setSuccessModal(false)}
+        onOk={() => push("/auth/login")}
+        okText="Ke Halaman Login"
+        title="Email sudah terkirim"
+        content="Silahkan cek email anda untuk melanjutkan proses mereset kata sandi"
+        open={successModal}
+      />
     </form>
   );
 };

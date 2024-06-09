@@ -1,18 +1,43 @@
 "use server";
+import { generateToken } from "@/libs/auth/token";
+import { sendLinkResetEmail } from "@/libs/email/send-link-reset";
 import { db } from "@/libs/db/connection";
 import { users } from "@/libs/db/schema";
-import { sendLinkResetEmail } from "@/libs/email/send-link-reset";
-import { generateOtp } from "@/libs/otp/generate";
 import { eq } from "drizzle-orm";
 
 export const forgotAction = async (value: string) => {
-  const { otp, otpHash } = await generateOtp();
-  try {
-    await db.update(users).set({ otp: otpHash }).where(eq(users.email, value));
-    await sendLinkResetEmail({ email: value, token: otp });
+  if (!value) {
     return {
-      success: {
-        message: "Link reset password sudah kirim",
+      error: {
+        message: "Email harus diisi",
+      },
+    };
+  }
+
+  const isEmailExist = await db
+    .select({ email: users.email })
+    .from(users)
+    .where(eq(users.email, value))
+    .limit(1)
+    .then((data) => {
+      return data.length > 0;
+    });
+
+  const token = await generateToken({ email: value, id: value });
+
+  try {
+    if (isEmailExist) {
+      await sendLinkResetEmail({ email: value, token });
+      return {
+        success: {
+          message: "Link reset password sudah kirim",
+        },
+      };
+    }
+
+    return {
+      error: {
+        message: "Email tidak ditemukan",
       },
     };
   } catch (error) {

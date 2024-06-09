@@ -16,7 +16,7 @@ export const generateToken = async (payload: TTokenPayload) => {
   })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
-    .setExpirationTime(expiresAt.toISOString())
+    .setExpirationTime(expiresAt)
     .sign(new TextEncoder().encode(secret));
   return token;
 };
