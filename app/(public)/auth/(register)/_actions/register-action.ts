@@ -2,7 +2,6 @@
 import { db } from "@/libs/db/connection";
 import { TRegisterForm } from "../_entities/schema";
 import { users } from "@/libs/db/schema";
-import * as argon2 from "argon2";
 import { sendOtpVerficationEmail } from "@/libs/email/send-otp";
 import { generateOtp } from "@/libs/otp/generate";
 import { hashPassword } from "@/libs/auth/password";
