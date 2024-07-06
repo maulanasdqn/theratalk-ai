@@ -7,7 +7,7 @@ import Link from "next/link";
 import { FC, ReactElement } from "react";
 import { useForm } from "react-hook-form";
 import { TLoginForm, schema } from "../_entities/schema";
-import { loginByCredentials, loginByGoogle } from "../_actions/login-action";
+import { loginByCredentials, loginByGoogle, logout } from "../_actions/login-action";
 import { useNotifyStore } from "@/libs/store/notify";
 
 export const LoginFormModule: FC = (): ReactElement => {
@@ -41,7 +41,9 @@ export const LoginFormModule: FC = (): ReactElement => {
       className="w-full max-w-[594px] p-6 bg-white shadow-md h-auto rounded-xl flex flex-col gap-y-6 justify-center"
     >
       <div className="flex flex-col">
-        <h1 className="text-3xl font-bold">Login</h1>
+        <h1 onClick={() => logout()} className="text-3xl font-bold">
+          Login
+        </h1>
       </div>
       <div className="flex flex-col gap-y-4">
         <Input
@@ -80,7 +82,7 @@ export const LoginFormModule: FC = (): ReactElement => {
           </span>
           <hr className="border absolute top-1/2 -translate-y-1/2 border-gray-300 w-full" />
         </div>
-        <Button type="button" onClick={loginByGoogle} variant="secondary">
+        <Button type="button" onClick={() => loginByGoogle()} variant="secondary">
           <GoogleIcon />
           Masuk dengan Google
         </Button>

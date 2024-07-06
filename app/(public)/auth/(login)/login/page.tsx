@@ -3,7 +3,7 @@ import { NextPage } from "next";
 import { ReactElement } from "react";
 import { LoginFormModule } from "../_modules";
 
-const AuthLoginPage: NextPage = (): ReactElement => {
+const AuthLoginPage: NextPage = async (): Promise<ReactElement> => {
   return <LoginFormModule />;
 };
 

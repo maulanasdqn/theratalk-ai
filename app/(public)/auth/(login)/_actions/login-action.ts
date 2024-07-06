@@ -1,6 +1,6 @@
 "use server";
 
-import { signIn } from "@/libs/auth/auth";
+import { signIn, signOut } from "@/libs/auth/auth";
 import { TLoginForm } from "../_entities/schema";
 
 export const loginByCredentials = async (payload: TLoginForm) => {
@@ -13,6 +13,10 @@ export const loginByCredentials = async (payload: TLoginForm) => {
 
 export const loginByGoogle = async () => {
   return await signIn("google", {
-    redirect: false,
+    redirect: true,
   });
+};
+
+export const logout = async () => {
+  return await signOut();
 };

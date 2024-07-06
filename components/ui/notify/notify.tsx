@@ -34,27 +34,34 @@ export const Notify: FC = (): ReactElement => {
     return () => clearTimeout(timer);
   }, [notify, setNotify]);
 
-  return createPortal(
-    <AnimatePresence>
-      {notify.show && (
-        <motion.div
-          key="notify"
-          initial="initial"
-          animate="animate"
-          exit="exit"
-          variants={variants}
-          onClick={() =>
-            setNotify({
-              ...notify,
-              show: false,
-            })
-          }
-          className={className}
-        >
-          {notify.message}
-        </motion.div>
-      )}
-    </AnimatePresence>,
-    document.body,
+  const isWindowPresent = typeof window !== "undefined";
+
+  return (
+    <>
+      {isWindowPresent &&
+        createPortal(
+          <AnimatePresence>
+            {notify.show && (
+              <motion.div
+                key="notify"
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                variants={variants}
+                onClick={() =>
+                  setNotify({
+                    ...notify,
+                    show: false,
+                  })
+                }
+                className={className}
+              >
+                {notify.message}
+              </motion.div>
+            )}
+          </AnimatePresence>,
+          isWindowPresent && document.body,
+        )}
+    </>
   );
 };

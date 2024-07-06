@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
-import authConfig from "./config";
+import { authConfig } from "./config";
 import { db } from "@/libs/db/connection";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
@@ -8,17 +8,23 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: DrizzleAdapter(db),
   session: { strategy: "jwt" },
   callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        token.sub = user.id;
+    async jwt({ token, user, account }) {
+      if (account?.provider === "google") {
+        token.user = {
+          id: user.id as string,
+          fullname: user.name as string,
+          image: user.image as string,
+          email: user.email as string,
+          emailVerified: new Date(),
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        };
       }
       return token;
     },
 
     async session({ session, token }) {
-      if (session.user) {
-        session.user.id = token.sub as string;
-      }
+      session.user = token.user;
       return session;
     },
   },
