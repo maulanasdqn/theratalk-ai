@@ -1,11 +1,12 @@
 "use client";
-import { FC, ReactElement } from "react";
+import type { FC, ReactElement } from "react";
 import { Button } from "@/components/ui/button";
 import { HeroIllustration } from "@/components/svg-tsx/hero-ill";
-import Link from "next/link";
 import { motion } from "framer-motion";
+import { useNotifyStore } from "@/libs/store/notify";
 
 export const HeroModule: FC = (): ReactElement => {
+  const { setNotify, notify } = useNotifyStore();
   return (
     <section className="w-full flex flex-col items-center bg-green-50">
       <section className="flex flex-col lg:flex-row items-center h-full max-h-2xl w-full justify-between px-6 py-20 bg-green-50 max-w-7xl">
@@ -14,7 +15,7 @@ export const HeroModule: FC = (): ReactElement => {
             transition={{ duration: 0.5 }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="lg:text-5xl md:text-4xl sm:text-3xl text-2xl font-bold text-gray-900"
+            className="lg:text-5xl md:text-4xl sm:text-3xl text-2xl font-bold text-green-700"
           >
             The Way Forward to a Happier Life
           </motion.h1>
@@ -22,14 +23,22 @@ export const HeroModule: FC = (): ReactElement => {
             transition={{ duration: 0.5 }}
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            className="md:text-xl text-lg font-medium text-gray-900 font-sans"
+            className="md:text-xl text-lg font-medium text-green-900 font-sans"
           >
             Get connected to the nearest health facilities and mental health professionals with{" "}
             <strong>TheraTalk AI.</strong>
           </motion.p>
-          <Link href="/about" className="w-fit">
-            <Button>Learn More</Button>
-          </Link>
+          <Button
+            onClick={() =>
+              setNotify({
+                ...notify,
+                show: true,
+                message: "The feature will come in a month.",
+              })
+            }
+          >
+            Learn More
+          </Button>
         </div>
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="md:hidden block">
           <HeroIllustration width="240" height="320" />

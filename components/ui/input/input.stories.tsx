@@ -34,6 +34,11 @@ const meta: Meta<typeof Input> = {
         type: "text",
       },
     },
+    disabled: {
+      control: {
+        type: "boolean",
+      },
+    },
   },
 };
 

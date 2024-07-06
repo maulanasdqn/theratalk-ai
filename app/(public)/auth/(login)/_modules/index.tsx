@@ -7,10 +7,11 @@ import Link from "next/link";
 import { FC, ReactElement } from "react";
 import { useForm } from "react-hook-form";
 import { TLoginForm, schema } from "../_entities/schema";
-import { signIn } from "next-auth/react";
-import { loginByCredentials } from "../_actions/login-action";
+import { loginByCredentials, loginByGoogle } from "../_actions/login-action";
+import { useNotifyStore } from "@/libs/store/notify";
 
 export const LoginFormModule: FC = (): ReactElement => {
+  const { setNotify, notify } = useNotifyStore();
   const {
     control,
     handleSubmit,
@@ -25,7 +26,13 @@ export const LoginFormModule: FC = (): ReactElement => {
   });
 
   const onSubmit = handleSubmit(async (data) => {
-    await loginByCredentials(data);
+    const res = await loginByCredentials(data);
+    setNotify({
+      ...notify,
+      show: true,
+      type: "error",
+      message: res,
+    });
   });
 
   return (
@@ -73,7 +80,7 @@ export const LoginFormModule: FC = (): ReactElement => {
           </span>
           <hr className="border absolute top-1/2 -translate-y-1/2 border-gray-300 w-full" />
         </div>
-        <Button type="button" onClick={() => signIn("google")} variant="secondary">
+        <Button type="button" onClick={loginByGoogle} variant="secondary">
           <GoogleIcon />
           Masuk dengan Google
         </Button>
