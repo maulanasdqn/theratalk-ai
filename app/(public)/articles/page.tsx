@@ -2,7 +2,7 @@
 import type { NextPage } from "next";
 import type { ReactElement } from "react";
 
-const ArticlesPage: NextPage = (): ReactElement => {
+const ArticlesPage: NextPage = async (): Promise<ReactElement> => {
   return <div>Articles Page</div>;
 };
 

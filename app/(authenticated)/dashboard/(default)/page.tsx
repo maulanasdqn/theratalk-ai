@@ -5,7 +5,6 @@ import type { ReactElement } from "react";
 
 const DashboardPage: NextPage = async (): Promise<ReactElement> => {
   const session = await auth();
-
   return (
     <div>
       <h1>Dashboard {session?.user?.email}</h1>

@@ -3,7 +3,7 @@ import { NextPage } from "next";
 import { ReactElement } from "react";
 import { ForgotFormModule } from "../_modules";
 
-const AuthForgotPage: NextPage = (): ReactElement => {
+const AuthForgotPage: NextPage = async (): Promise<ReactElement> => {
   return <ForgotFormModule />;
 };
 
