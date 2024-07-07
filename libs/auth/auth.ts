@@ -22,6 +22,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             otp: undefined,
             password: undefined,
           });
+          return `/auth/register?email=${user?.email}&fullname=${user?.name}&from=google`;
         }
         if (isUserExist) {
           const getUserData = await getUser(user?.email as string);
