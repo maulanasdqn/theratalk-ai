@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import type { FC, PropsWithChildren, ReactElement } from "react";
 import { Montserrat } from "next/font/google";
-import { FC, PropsWithChildren, ReactElement } from "react";
 import { StoreProvider } from "@/libs/store/provider";
-import "./globals.css";
+import { AuthProvider } from "@/libs/auth/provider";
 import { Notify } from "@/components/ui/notify";
+import "./globals.css";
 
 const monserrat = Montserrat({
   subsets: ["latin", "latin-ext"],
@@ -22,11 +23,12 @@ const RootLayout: FC<Readonly<PropsWithChildren>> = (props): ReactElement => {
   return (
     <html lang="en">
       <body className={monserrat.className}>
-        <StoreProvider>
-          {props.children}
-          <Notify />
-        </StoreProvider>
-        <div id="modal" />
+        <AuthProvider>
+          <StoreProvider>
+            {props.children}
+            <Notify />
+          </StoreProvider>
+        </AuthProvider>
       </body>
     </html>
   );

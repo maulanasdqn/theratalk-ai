@@ -5,39 +5,57 @@ import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { FC, ReactElement, useState } from "react";
+import { FC, ReactElement, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { TRegisterForm, schema } from "../_entities/schema";
 import { registerAction } from "../_actions/register-action";
 import { ExclamationIcon } from "@/components/svg-tsx/exclamation-icon";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useNotifyStore } from "@/libs/store/notify";
 
 export const RegisterFormModule: FC = (): ReactElement => {
+  const { setNotify, notify } = useNotifyStore();
   const [openModal, setOpenModal] = useState<boolean>(false);
   const { push } = useRouter();
+  const searchParams = useSearchParams();
+  const emailParams = searchParams.get("email");
+  const fullnameParams = searchParams.get("fullname");
+  const fromParams = searchParams.get("from");
   const {
     control,
     handleSubmit,
     formState: { isValid },
   } = useForm<TRegisterForm>({
     resolver: zodResolver(schema),
-    mode: "all",
+    mode: "onChange",
     defaultValues: {
-      email: "",
+      email: emailParams || "",
       address: "",
-      fullname: "",
+      fullname: fullnameParams || "",
       password: "",
       confirmPassword: "",
     },
   });
 
   const onSubmit = handleSubmit(async (data) => {
-    const response = await registerAction(data);
+    const response = await registerAction(data, fromParams);
     if (response?.error) {
-      alert(response?.error?.message);
+      setOpenModal(false);
+      setNotify({
+        ...notify,
+        show: true,
+        type: "error",
+        message: response?.error?.message,
+      });
     }
 
     if (response?.success) {
+      setNotify({
+        ...notify,
+        show: true,
+        type: "success",
+        message: response?.success?.message,
+      });
       push(`/auth/otp?email=${data.email}&type=register`);
     }
   });
@@ -55,6 +73,7 @@ export const RegisterFormModule: FC = (): ReactElement => {
           placeholder="Masukkan nama lengkap"
           required
           label="Nama Lengkap"
+          readOnly={!!emailParams}
         />
         <Input
           control={control}
@@ -71,6 +90,7 @@ export const RegisterFormModule: FC = (): ReactElement => {
           placeholder="Masukkan Email"
           required
           label="Email"
+          readOnly={!!emailParams}
         />
         <div className="flex gap-x-4 w-full">
           <Input
@@ -91,7 +111,7 @@ export const RegisterFormModule: FC = (): ReactElement => {
           />
         </div>
         <Button type="button" onClick={() => setOpenModal(true)} disabled={!isValid}>
-          Daftar
+          {!!emailParams ? "Lanjut Daftar dengan Google" : "Daftar"}
         </Button>
         <div className="w-full flex justify-center">
           <div className="text-xs sm:text-sm text-gray-500">

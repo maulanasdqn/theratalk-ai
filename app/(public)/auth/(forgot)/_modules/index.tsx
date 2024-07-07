@@ -63,7 +63,7 @@ export const ForgotFormModule: FC = (): ReactElement => {
           required
           label="Alamat Email"
         />
-        <Button disabled={!isValid}>Kirim Kode OTP</Button>
+        <Button disabled={!isValid}>Kirim Link Reset</Button>
         <div className="w-full flex justify-center">
           <div className="text-xs sm:text-sm text-gray-500">
             Sudah ingat akun anda?{" "}

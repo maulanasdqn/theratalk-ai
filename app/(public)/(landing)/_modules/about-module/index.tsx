@@ -25,12 +25,22 @@ export const AboutModule: FC = (): ReactElement => {
           masalah kesehatan mental.{" "}
         </motion.p>
       </div>
-      <div className="md:hidden block">
+      <motion.div
+        initial={{ opacity: 0, x: 50 }}
+        transition={{ duration: 0.5 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        className="md:hidden block"
+      >
         <AboutIllustration width="240" height="320" />
-      </div>
-      <div className="lg:block hidden">
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, x: 50 }}
+        transition={{ duration: 0.5 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        className="lg:block hidden"
+      >
         <AboutIllustration />
-      </div>
+      </motion.div>
     </section>
   );
 };

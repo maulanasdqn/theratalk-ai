@@ -1,9 +1,13 @@
+"use client";
 import { TheraIcon } from "@/components/svg-tsx/thera-icon";
 import { Button } from "@/components/ui/button";
 import { FC, ReactElement } from "react";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 export const Navbar: FC = (): ReactElement => {
+  const session = useSession();
+
   return (
     <header className="w-full items-center justify-center max-w-7xl">
       <nav className="flex items-center justify-between flex-wrap bg-green-50 px-3 py-6 md:p-6 w-full sticky top-0">
@@ -34,14 +38,20 @@ export const Navbar: FC = (): ReactElement => {
               Articles
             </Link>
           </div>
-          <div className="flex gap-x-4">
-            <Link href="/auth/login">
-              <Button>Login</Button>
+          {session?.data ? (
+            <Link href="/dashboard">
+              <Button>Dashboard</Button>
             </Link>
-            <Link href="/auth/register">
-              <Button variant="secondary">Register</Button>
-            </Link>
-          </div>
+          ) : (
+            <div className="flex gap-x-4">
+              <Link href="/auth/login">
+                <Button>Login</Button>
+              </Link>
+              <Link href="/auth/register">
+                <Button variant="secondary">Register</Button>
+              </Link>
+            </div>
+          )}
         </div>
       </nav>
     </header>

@@ -7,13 +7,13 @@ import { AdapterUser } from "next-auth/adapters";
 
 declare module "next-auth/jwt" {
   interface JWT {
-    user: Omit<TUser, "password" | "address">;
+    user: Omit<TUser, "password">;
     token: TToken;
   }
 }
 
 declare module "next-auth" {
   interface Session {
-    user: Omit<TUser, "password" | "address">;
+    user: Omit<TUser, "password">;
   }
 }

@@ -10,6 +10,7 @@ import { resetAction } from "../_actions/reset-action";
 import { Modal } from "@/components/ui/modal";
 import { CheckIcon } from "@/components/svg-tsx/check-icon";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useNotifyStore } from "@/libs/store/notify";
 
 export const ResetFormModule: FC = (): ReactElement => {
   const searchParams = useSearchParams();
@@ -18,6 +19,7 @@ export const ResetFormModule: FC = (): ReactElement => {
   const email = searchParams.get("email") || "";
   const token = (params.token as string) || "";
   const { push } = useRouter();
+  const { setNotify, notify } = useNotifyStore();
 
   const {
     control,
@@ -41,10 +43,21 @@ export const ResetFormModule: FC = (): ReactElement => {
 
     if (res?.success) {
       setSuccessModal(true);
+      setNotify({
+        ...notify,
+        show: true,
+        type: "success",
+        message: res?.success.message,
+      });
     }
 
     if (res?.error) {
-      alert(res.error.message);
+      setNotify({
+        ...notify,
+        show: true,
+        type: "error",
+        message: res?.error.message,
+      });
     }
   });
 

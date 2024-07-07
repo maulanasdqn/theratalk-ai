@@ -4,7 +4,7 @@ import { Icon } from "@iconify/react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { TheraIcon } from "@/components/svg-tsx/thera-icon";
-import { signOut } from "next-auth/react";
+import { logout } from "@/libs/auth/login";
 
 export const Sidebar: FC = (): ReactElement => {
   const [extend, setExtend] = useState(false);
@@ -63,7 +63,7 @@ export const Sidebar: FC = (): ReactElement => {
         </Link>
       </nav>
       <div
-        onClick={() => signOut()}
+        onClick={() => logout()}
         className="absolute cursor-pointer transition-all duration-300 bottom-4 text-sm left-5 flex items-center gap-x-2"
       >
         <Icon icon="carbon:logout" width={extend ? 20 : 30} className="text-green-700" />

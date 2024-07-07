@@ -1,3 +1,4 @@
+"use server";
 import { Fragment, type ReactElement } from "react";
 import type { NextPage } from "next";
 import { Navbar } from "@/components/ui/navbar";

@@ -27,9 +27,10 @@ export const resetAction = async (payload: TResetForm) => {
       },
     };
   } catch (error) {
+    const err = error as Error;
     return {
       error: {
-        message: error,
+        message: err?.message,
       },
     };
   }

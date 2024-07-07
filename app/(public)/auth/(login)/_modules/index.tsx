@@ -9,8 +9,10 @@ import { useForm } from "react-hook-form";
 import { TLoginForm, schema } from "../_entities/schema";
 import { loginByCredentials, loginByGoogle, logout } from "../_actions/login-action";
 import { useNotifyStore } from "@/libs/store/notify";
+import { useRouter } from "next/navigation";
 
 export const LoginFormModule: FC = (): ReactElement => {
+  const { push } = useRouter();
   const { setNotify, notify } = useNotifyStore();
   const {
     control,
@@ -27,12 +29,24 @@ export const LoginFormModule: FC = (): ReactElement => {
 
   const onSubmit = handleSubmit(async (data) => {
     const res = await loginByCredentials(data);
-    setNotify({
-      ...notify,
-      show: true,
-      type: "error",
-      message: res,
-    });
+    if (res.success) {
+      setNotify({
+        ...notify,
+        show: true,
+        type: "success",
+        message: res?.success?.message as string,
+      });
+      push("/dashboard");
+    }
+
+    if (res.error) {
+      setNotify({
+        ...notify,
+        show: true,
+        type: "error",
+        message: res?.error?.message as string,
+      });
+    }
   });
 
   return (
@@ -41,9 +55,7 @@ export const LoginFormModule: FC = (): ReactElement => {
       className="w-full max-w-[594px] p-6 bg-white shadow-md h-auto rounded-xl flex flex-col gap-y-6 justify-center"
     >
       <div className="flex flex-col">
-        <h1 onClick={() => logout()} className="text-3xl font-bold">
-          Login
-        </h1>
+        <h1 className="text-3xl font-bold">Login</h1>
       </div>
       <div className="flex flex-col gap-y-4">
         <Input
