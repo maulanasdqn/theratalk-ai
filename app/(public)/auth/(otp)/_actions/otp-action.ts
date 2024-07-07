@@ -4,7 +4,7 @@ import { db } from "@/libs/db/connection";
 import { TOTPForm } from "../_entities/schema";
 import { users } from "@/libs/db/schema";
 import { eq } from "drizzle-orm";
-import * as argon2 from "argon2";
+import * as argon2 from "argon2-wasm-edge";
 
 export const otpVerification = async (value: TOTPForm) => {
   try {
@@ -18,7 +18,10 @@ export const otpVerification = async (value: TOTPForm) => {
         .then((res) => {
           return res?.at(0)?.otp;
         })) || "";
-    const otpHash = await argon2.verify(otp, value.otp);
+    const otpHash = await argon2.argon2Verify({
+      hash: otp,
+      password: value.otp,
+    });
     if (otpHash) {
       await db.update(users).set({ otp: null }).where(eq(users.email, value.email));
       await db.update(users).set({ emailVerified: new Date() }).where(eq(users.email, value.email));
