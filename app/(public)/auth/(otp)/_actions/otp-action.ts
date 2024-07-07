@@ -1,8 +1,8 @@
 "use server";
 
-import { db } from "@/libs/db/connection";
+import { db } from "@/libs/drizzle/connection";
 import { TOTPForm } from "../_entities/schema";
-import { users } from "@/libs/db/schema";
+import { users } from "@/libs/drizzle/schema";
 import { eq } from "drizzle-orm";
 import * as argon2 from "argon2-wasm-edge";
 
@@ -27,14 +27,22 @@ export const otpVerification = async (value: TOTPForm) => {
       await db.update(users).set({ emailVerified: new Date() }).where(eq(users.email, value.email));
       return {
         success: {
-          message: "OTP verified successfully",
+          message: "Berhasil memverifikasi akun",
+        },
+      };
+    }
+
+    if (!otpHash) {
+      return {
+        error: {
+          message: "Gagal memverifikasi akun",
         },
       };
     }
   } catch (error) {
     return {
       error: {
-        message: "OTP verification failed",
+        message: "Gagal memverifikasi akun",
       },
     };
   }

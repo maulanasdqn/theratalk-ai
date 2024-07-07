@@ -1,9 +1,9 @@
 "use server";
-import { db } from "@/libs/db/connection";
+import { db } from "@/libs/drizzle/connection";
+import { users } from "@/libs/drizzle/schema";
 import { TRegisterForm } from "../_entities/schema";
-import { users } from "@/libs/db/schema";
-import { sendOtpVerficationEmail } from "@/libs/email/send-otp";
-import { generateOtp } from "@/libs/otp/generate";
+import { sendOtpVerficationEmail } from "@/libs/resend/send-otp";
+import { generateOtp } from "@/libs/auth/otp";
 import { hashPassword } from "@/libs/auth/password";
 import { eq } from "drizzle-orm";
 

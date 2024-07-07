@@ -5,13 +5,14 @@ import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { FC, ReactElement, useEffect, useState } from "react";
+import { FC, ReactElement, useState } from "react";
 import { useForm } from "react-hook-form";
 import { TRegisterForm, schema } from "../_entities/schema";
 import { registerAction } from "../_actions/register-action";
 import { ExclamationIcon } from "@/components/svg-tsx/exclamation-icon";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useNotifyStore } from "@/libs/store/notify";
+import { loginByGoogle } from "../../(login)/_actions/login-action";
 
 export const RegisterFormModule: FC = (): ReactElement => {
   const { setNotify, notify } = useNotifyStore();
@@ -63,7 +64,8 @@ export const RegisterFormModule: FC = (): ReactElement => {
   return (
     <form className="w-full max-w-[594px] p-6 bg-white shadow-md h-auto rounded-xl flex flex-col gap-y-6 justify-center">
       <div className="flex flex-col">
-        <h1 className="text-3xl font-bold">Register</h1>
+        <h1 className="text-3xl font-bold">{!!emailParams ? "Daftar dengan Google" : "Daftar"}</h1>
+        <p className="text-sm">Lengkapi data untuk melanjutkan proses pendaftaran</p>
       </div>
       <div className="flex flex-col gap-y-4">
         <Input
@@ -90,6 +92,7 @@ export const RegisterFormModule: FC = (): ReactElement => {
           placeholder="Masukkan Email"
           required
           label="Email"
+          autoComplete="email"
           readOnly={!!emailParams}
         />
         <div className="flex gap-x-4 w-full">
@@ -100,6 +103,7 @@ export const RegisterFormModule: FC = (): ReactElement => {
             placeholder="Masukkan Kata Sandi"
             required
             label="Kata Sandi"
+            autoComplete="new-password"
           />
           <Input
             control={control}
@@ -108,6 +112,7 @@ export const RegisterFormModule: FC = (): ReactElement => {
             placeholder="Masukkan konfirmasi kata Sandi"
             required
             label="Konfirmasi Kata Sandi"
+            autoComplete="new-password"
           />
         </div>
         <Button type="button" onClick={() => setOpenModal(true)} disabled={!isValid}>
@@ -121,16 +126,20 @@ export const RegisterFormModule: FC = (): ReactElement => {
             </Link>
           </div>
         </div>
-        <div className="flex relative my-3">
-          <span className="text-sm text-gray-400 leading-5 left-1/2 translate-x-[-50%] flex justify-center bg-white absolute -top-3 z-10 px-1">
-            Atau
-          </span>
-          <hr className="border absolute top-1/2 -translate-y-1/2 border-gray-300 w-full" />
-        </div>
-        <Button variant="secondary">
-          <GoogleIcon />
-          Daftar dengan Google
-        </Button>
+        {!emailParams && (
+          <>
+            <div className="flex relative my-3">
+              <span className="text-sm text-gray-400 leading-5 left-1/2 translate-x-[-50%] flex justify-center bg-white absolute -top-3 z-10 px-1">
+                Atau
+              </span>
+              <hr className="border absolute top-1/2 -translate-y-1/2 border-gray-300 w-full" />
+            </div>
+            <Button onClick={() => loginByGoogle()} variant="secondary">
+              <GoogleIcon />
+              Daftar dengan Google
+            </Button>
+          </>
+        )}
       </div>
 
       <Modal

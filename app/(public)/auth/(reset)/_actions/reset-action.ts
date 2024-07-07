@@ -1,8 +1,8 @@
 "use server";
 
-import { users } from "@/libs/db/schema";
+import { users } from "@/libs/drizzle/schema";
+import { db } from "@/libs/drizzle/connection";
 import { TResetForm } from "../_entities/schema";
-import { db } from "@/libs/db/connection";
 import { hashPassword } from "@/libs/auth/password";
 import { eq } from "drizzle-orm";
 import { verifyToken } from "@/libs/auth/token";

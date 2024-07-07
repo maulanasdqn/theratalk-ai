@@ -1,8 +1,8 @@
 "use server";
 import { generateToken } from "@/libs/auth/token";
-import { sendLinkResetEmail } from "@/libs/email/send-link-reset";
-import { db } from "@/libs/db/connection";
-import { users } from "@/libs/db/schema";
+import { sendLinkResetEmail } from "@/libs/resend/send-link-reset";
+import { db } from "@/libs/drizzle/connection";
+import { users } from "@/libs/drizzle/schema";
 import { eq } from "drizzle-orm";
 
 export const forgotAction = async (value: string) => {

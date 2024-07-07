@@ -10,12 +10,14 @@ import { TOTPForm, schema } from "../_entities/schema";
 import { otpVerification } from "../_actions/otp-action";
 import { Modal } from "@/components/ui/modal";
 import { CheckIcon } from "@/components/svg-tsx/check-icon";
+import { useNotifyStore } from "@/libs/store/notify";
 
 export const OTPFormModule: FC = (): ReactElement => {
   const [otpValues, setOtpValues] = useState<string[]>(Array(4).fill(""));
   const [successModal, setSuccessModal] = useState(false);
   const searchParams = useSearchParams();
   const { push } = useRouter();
+  const { setNotify, notify } = useNotifyStore();
 
   const {
     handleSubmit,
@@ -38,17 +40,22 @@ export const OTPFormModule: FC = (): ReactElement => {
     });
 
     if (res?.success) {
-      if (type === "register") {
-        setSuccessModal(true);
-      }
-
-      if (type === "forgot") {
-        push("/auth/reset");
-      }
+      setSuccessModal(true);
+      setNotify({
+        ...notify,
+        show: true,
+        type: "success",
+        message: res?.success?.message,
+      });
     }
 
     if (res?.error) {
-      alert(res?.error?.message);
+      setNotify({
+        ...notify,
+        show: true,
+        type: "error",
+        message: res?.error?.message,
+      });
     }
   });
 

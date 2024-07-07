@@ -1,6 +1,6 @@
 "use server";
 
-import { signIn, signOut } from "@/libs/auth/auth";
+import { signIn } from "@/libs/auth/auth";
 import { TLoginForm } from "../_entities/schema";
 
 export const loginByCredentials = async (payload: TLoginForm) => {

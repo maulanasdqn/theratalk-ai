@@ -7,11 +7,13 @@ import { AboutModule } from "./_modules/about-module";
 import { SellingPointModule } from "./_modules/selling-point-module";
 import { UsageFlowModule } from "./_modules/usage-flow-module";
 import { FooterModule } from "./_modules/footer-module";
+import { auth } from "@/libs/auth/auth";
 
-const LandingPage: NextPage = (): ReactElement => {
+const LandingPage: NextPage = async (): Promise<ReactElement> => {
+  const session = await auth();
   return (
     <Fragment>
-      <Navbar />
+      <Navbar user={session?.user} />
       <HeroModule />
       <section className="w-full flex flex-col items-center bg-gray-50">
         <AboutModule />

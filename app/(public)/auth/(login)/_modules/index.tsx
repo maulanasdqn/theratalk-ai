@@ -55,7 +55,7 @@ export const LoginFormModule: FC = (): ReactElement => {
       className="w-full max-w-[594px] p-6 bg-white shadow-md h-auto rounded-xl flex flex-col gap-y-6 justify-center"
     >
       <div className="flex flex-col">
-        <h1 className="text-3xl font-bold">Login</h1>
+        <h1 className="text-3xl font-bold">Masuk</h1>
       </div>
       <div className="flex flex-col gap-y-4">
         <Input
@@ -65,6 +65,7 @@ export const LoginFormModule: FC = (): ReactElement => {
           placeholder="Masukkan Email"
           required
           label="Email"
+          autoComplete="email"
         />
         <Input
           control={control}
@@ -73,6 +74,7 @@ export const LoginFormModule: FC = (): ReactElement => {
           placeholder="Masukkan Kata Sandi"
           required
           label="Kata Sandi"
+          autoComplete="current-password"
         />
         <div className="w-full flex justify-end">
           <Link className="text-xs sm:text-sm font-semibold text-green-700" href="/auth/forgot">

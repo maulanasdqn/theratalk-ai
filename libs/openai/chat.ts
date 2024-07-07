@@ -1,5 +1,5 @@
 "use server";
-import { openai } from "./openai";
+import { openai } from "./config";
 
 export const chatWithAi = async (value: string) => {
   const response = await openai.chat.completions.create({

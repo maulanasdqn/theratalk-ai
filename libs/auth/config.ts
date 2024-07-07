@@ -1,7 +1,8 @@
 import Google from "next-auth/providers/google";
-import type { NextAuthConfig } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { checkEmail, checkPassword, getUser } from "./login";
+import { checkEmail, checkPassword, getUserData } from "./login";
+import type { NextAuthConfig } from "next-auth";
+import { schema } from "@/app/(public)/auth/(login)/_entities/schema";
 
 export const authConfig = {
   providers: [
@@ -14,26 +15,25 @@ export const authConfig = {
         password: { label: "Password", type: "password", placeholder: "*********" },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials.password) {
+        const { data } = schema.safeParse(credentials);
+
+        if (!data?.email || !data?.password) {
           throw "Email dan Password wajib diisi";
         }
 
-        const isUserExist = await checkEmail(String(credentials.email));
+        const isUserExist = await checkEmail(data?.email);
 
         if (!isUserExist) {
           throw "Akun tidak terdaftar";
         }
 
-        const isPasswordCorrect = await checkPassword(
-          String(credentials.password),
-          String(credentials.email),
-        );
+        const isPasswordCorrect = await checkPassword(data?.password, data?.email);
 
         if (!isPasswordCorrect) {
           throw "Email atau Kata sandi tidak valid";
         }
 
-        const user = await getUser(String(credentials.email));
+        const user = await getUserData(data?.email);
 
         const isEmailVerified = user?.emailVerified;
 

@@ -3,11 +3,13 @@ import { TheraIcon } from "@/components/svg-tsx/thera-icon";
 import { Button } from "@/components/ui/button";
 import { FC, ReactElement } from "react";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
+import { TUser } from "@/types/user";
 
-export const Navbar: FC = (): ReactElement => {
-  const session = useSession();
+type TNavbar = {
+  user?: Omit<TUser, "password">;
+};
 
+export const Navbar: FC<TNavbar> = ({ user }): ReactElement => {
   return (
     <header className="w-full items-center justify-center max-w-7xl">
       <nav className="flex items-center justify-between flex-wrap bg-green-50 px-3 py-6 md:p-6 w-full sticky top-0">
@@ -38,7 +40,7 @@ export const Navbar: FC = (): ReactElement => {
               Articles
             </Link>
           </div>
-          {session?.data ? (
+          {user ? (
             <Link href="/dashboard">
               <Button>Dashboard</Button>
             </Link>
