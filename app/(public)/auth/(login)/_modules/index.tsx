@@ -7,7 +7,7 @@ import Link from "next/link";
 import { FC, ReactElement } from "react";
 import { useForm } from "react-hook-form";
 import { TLoginForm, schema } from "../_entities/schema";
-import { loginByCredentials, loginByGoogle, logout } from "../_actions/login-action";
+import { loginByCredentials, loginByGoogle } from "../_actions/login-action";
 import { useNotifyStore } from "@/libs/store/notify";
 import { useRouter } from "next/navigation";
 
