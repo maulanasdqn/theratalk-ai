@@ -7,5 +7,7 @@ CREATE TABLE IF NOT EXISTS "app_user" (
 	"email" text NOT NULL,
 	"emailVerified" timestamp,
 	"image" text DEFAULT 'https://w7.pngwing.com/pngs/205/731/png-transparent-default-avatar-thumbnail.png',
+	"createdAt" timestamp DEFAULT now(),
+	"updatedAt" timestamp DEFAULT now(),
 	CONSTRAINT "app_user_email_unique" UNIQUE("email")
 );

@@ -5,15 +5,8 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1720334039705,
-      "tag": "0000_illegal_silvermane",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "6",
-      "when": 1720359839948,
-      "tag": "0001_yummy_venus",
+      "when": 1720362211394,
+      "tag": "0000_heavy_ben_grimm",
       "breakpoints": true
     }
   ]
